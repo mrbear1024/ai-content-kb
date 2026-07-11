@@ -8,3 +8,4 @@ Review candidates for accuracy, provenance, duplication, ownership, and intended
 - `course-drafts/`: course outlines and control-file drafts.
 - `wiki/`: candidate concept, entity, map, and source-note pages.
 - `links/`: candidate relationship sidecars.
+- `migration/`: legacy-vault inventories, path mappings, and migration candidates awaiting review.

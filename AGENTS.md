@@ -62,6 +62,20 @@ Inspect the requested existing content using the Backfill workflow. Generate can
 
 Run deterministic checks described in Lint. Write a report under `.kb/reports/` when the result is substantial. Do not apply semantic corrections automatically.
 
+### `迁移旧知识库` / `migrate legacy knowledge base`
+
+Follow `docs/MIGRATION_GUIDE.md` and its safety model:
+
+1. Begin with a read-only inventory. Do not move, copy, delete, rename, or rewrite legacy files during inventory.
+2. Generate an inventory report under `.kb/reports/` and a proposed mapping under `.kb/staging/migration/`.
+3. Classify files by provenance, review state, and intended use before topic. Mark ambiguity as `needs_review`.
+4. Wait for mapping approval before copying content.
+5. Pilot with 20–50 representative files. Copy rather than move, and never use destructive synchronization.
+6. Keep generated wiki pages and graph data in staging.
+7. Validate counts, hashes or bodies, frontmatter, links, attachments, aliases, privacy, and copyright risk.
+8. Expand only in reviewed batches with one coherent Git commit per accepted batch.
+9. Keep the old vault read-only until cutover and recovery checks pass.
+
 ## Directory Semantics
 
 - `raw/`: original personal input from the repository owner.

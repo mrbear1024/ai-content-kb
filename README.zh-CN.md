@@ -82,6 +82,7 @@ Codex 官方文档说明，它会在开始工作前读取仓库中的 `AGENTS.md
 | `审核并发布索引：.kb/staging/wiki/...` | 校验引用、alias、边和 hash，再进入 `wiki/` 与 `.kb/links/` |
 | `查询知识库：我有哪些关于 Context Engineering 的材料？` | 从 Wiki 定位，经图谱回到原文，并引用仓库路径 |
 | `在知识库中进行 AI 内容创作：写一篇关于……的文章` | 检索已审核知识与原文，生成带来源的 staging 草稿 |
+| `迁移旧知识库：只读盘点这个目录` | 先生成盘点报告和路径映射，不修改旧库 |
 | `回填知识库：products/articles/` | 扫描旧内容，生成关系和报告，不修改正文 |
 | `检查知识库` | 检查断链、缺失引用、重复 alias、hash 变化和隐私风险 |
 
@@ -302,6 +303,34 @@ Codex 应先查 `wiki/` 和 `.kb/links/` 定位材料，再回到原始文件确
 
 `.kb/links/` 中的 YAML 边不会自动显示为 Obsidian 连线。需要可视化的高价值关系，应在审核后的 Wiki 页面中加入普通 Markdown 链接或 `[[wikilink]]`；机器层仍保留更精确的关系语义。
 
+## 从旧知识库迁移
+
+已有 Obsidian Vault、Markdown 笔记目录、文章仓库或课程内容时，不建议直接把全部文件拖入新库。推荐使用可回滚的迁移流程：
+
+```text
+备份旧库
+  -> 只读盘点
+  -> 审核 raw / sources / products / wiki 映射
+  -> 试迁 20～50 个代表文件
+  -> 检查正文、hash、链接、附件、alias 和隐私
+  -> 分批扩大，每批独立提交
+  -> 验收后再切换主知识库
+```
+
+可以在 Codex 中直接输入：
+
+```text
+迁移旧知识库：先只读盘点我提供的旧知识库目录。
+不要移动、复制、删除或修改旧文件。
+按 raw、sources、products、wiki、needs_review 分类，
+输出迁移报告和 20～50 个文件的首批试迁建议，然后等待我审核。
+```
+
+完整指南包含目录映射、Codex 分阶段提示词、迁移记录格式、Obsidian 链接与附件处理、手动 `rsync --dry-run` 方法、常见错误、回滚策略和验收清单：
+
+- [旧知识库迁移完整指南](docs/MIGRATION_GUIDE.zh-CN.md)
+- [English migration guide](docs/MIGRATION_GUIDE.md)
+
 ## 手动使用
 
 不使用 Codex 时，也可以按以下方式操作：
@@ -349,6 +378,8 @@ AI 未审核关系数据     -> .kb/staging/links/
 │   │   └── obsidian-graph-view.png
 │   ├── ARCHITECTURE.md
 │   ├── GRAPH_SCHEMA.md
+│   ├── MIGRATION_GUIDE.md
+│   ├── MIGRATION_GUIDE.zh-CN.md
 │   └── PUBLIC_RELEASE_CHECKLIST.md
 ├── raw/
 │   ├── notes/
@@ -374,6 +405,7 @@ AI 未审核关系数据     -> .kb/staging/links/
     ├── links/
     ├── staging/
     │   ├── wiki/
+    │   ├── migration/
     │   ├── drafts/
     │   ├── course-drafts/
     │   └── links/

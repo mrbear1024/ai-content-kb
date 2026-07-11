@@ -82,6 +82,7 @@ Codex reads repository `AGENTS.md` guidance before it starts work. This reposito
 | `review and publish index: <staging path>` | Validate citations, aliases, edges, and hashes before promotion |
 | `query knowledge base: <question>` | Navigate wiki and graph, return to originals, and cite repository paths |
 | `compose from knowledge base: <brief>` | Retrieve reviewed knowledge and originals, then create a sourced staging draft |
+| `migrate legacy knowledge base: inventory <path>` | Produce a read-only inventory and mapping proposal before copying |
 | `backfill knowledge base: <path>` | Analyze existing content without rewriting source or product bodies |
 | `lint knowledge base` | Check paths, citations, aliases, hashes, and privacy risks |
 
@@ -187,6 +188,30 @@ The included `.obsidian/graph.json` groups nodes by content role: `raw/`, `sourc
 
 YAML edges do not automatically appear as Obsidian graph lines. Add ordinary Markdown links or `[[wikilinks]]` to reviewed wiki pages when a high-value relationship should also be visible to people.
 
+## Migrate an existing knowledge base
+
+Do not drop an entire existing Obsidian vault or notes directory into the template. Use a reversible migration:
+
+```text
+backup -> read-only inventory -> mapping review -> 20–50 file pilot
+  -> validate content, links, attachments, aliases, and privacy
+  -> expand in reviewed Git batches -> cut over
+```
+
+Start in Codex with:
+
+```text
+Migrate legacy knowledge base: inventory the provided directory in read-only mode.
+Do not move, copy, delete, or modify legacy files.
+Classify samples as raw, sources, products, wiki, or needs_review.
+Produce a migration report and recommend a 20–50 file pilot, then stop for review.
+```
+
+Read the complete guides for content mapping, migration records, Obsidian links and attachments, batch validation, rollback, and acceptance criteria:
+
+- [Migration guide](docs/MIGRATION_GUIDE.md)
+- [中文迁移指南](docs/MIGRATION_GUIDE.zh-CN.md)
+
 ## Manual workflow
 
 Without Codex, read [START_HERE.md](START_HERE.md), add original notes under `raw/notes/`, add sources under `sources/clips/`, follow [AGENTS.md](AGENTS.md), and review generated candidates before promotion.
@@ -228,6 +253,8 @@ The deciding factors are review status, intended use, human ownership, and publi
 │   │   └── obsidian-graph-view.png
 │   ├── ARCHITECTURE.md
 │   ├── GRAPH_SCHEMA.md
+│   ├── MIGRATION_GUIDE.md
+│   ├── MIGRATION_GUIDE.zh-CN.md
 │   └── PUBLIC_RELEASE_CHECKLIST.md
 ├── raw/
 │   ├── notes/
@@ -258,6 +285,7 @@ The deciding factors are review status, intended use, human ownership, and publi
     │   └── entities/
     ├── staging/
     │   ├── wiki/
+    │   ├── migration/
     │   ├── drafts/
     │   ├── course-drafts/
     │   └── links/
