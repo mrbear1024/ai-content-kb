@@ -40,6 +40,21 @@ Use for machine-readable and rebuildable data:
 
 ## Daily workflows
 
+### Work with Codex
+
+Open the repository root as a Codex project. Codex reads the root `AGENTS.md` as durable project guidance, and that file instructs it to load the rest of the repository rules.
+
+You can start a task with natural-language intents such as:
+
+- `加入知识库：<文件、附件或 URL>`;
+- `增加 Wiki 索引：<材料或主题>`;
+- `审核并发布索引：<staging 路径>`;
+- `查询知识库：<问题>`;
+- `回填知识库：<目录或文件>`;
+- `检查知识库`.
+
+These phrases are repository conventions, not native slash commands. Include provenance, desired scope, and relevant paths whenever possible.
+
 ### Capture an idea
 
 ```text
@@ -69,7 +84,7 @@ orient in wiki
 
 ### Process AI output
 
-AI-generated content always starts in `.kb/staging/`. Review it for accuracy, provenance, duplication, ownership, tone, and publication readiness before promoting it.
+AI-generated content always starts in `.kb/staging/`. Wiki candidates go to `.kb/staging/wiki/`. Review all candidates for accuracy, provenance, duplication, ownership, tone, and publication readiness before promoting them.
 
 ## Principles
 

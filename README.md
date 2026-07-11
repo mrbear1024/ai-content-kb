@@ -52,13 +52,61 @@ See [Architecture](docs/ARCHITECTURE.md) for the design rationale.
 
 ## Quick start
 
-1. Clone or copy this repository.
-2. Open the repository root as an Obsidian vault, or use it as plain Markdown.
-3. Read [START_HERE.md](START_HERE.md).
-4. Add an original note under `raw/notes/`.
-5. Add an external source under `sources/clips/`.
-6. Ask an AI agent to ingest the files while following [AGENTS.md](AGENTS.md).
-7. Review generated candidates under `.kb/staging/` before promoting them.
+```bash
+git clone https://github.com/mrbear1024/ai-content-kb.git
+cd ai-content-kb
+```
+
+Open the repository root as an Obsidian vault or use it as plain Markdown. For the intended agent workflow, also open it as a Codex project.
+
+## Open the project in Codex
+
+1. Open the Codex desktop app.
+2. Select `+` in the `Projects` area.
+3. Choose `Use an existing folder`.
+4. Select the cloned `ai-content-kb` root, not one of its subdirectories.
+5. Start a new task inside that project.
+6. For a first-run check, say: `Inspect the project structure, read the knowledge-base rules, make no changes, and list the available workflows.`
+
+Codex reads repository `AGENTS.md` guidance before it starts work. This repository's root instructions then direct Codex to the remaining knowledge-base documentation, giving new tasks the same boundaries and workflows. [Read the official Codex documentation](https://learn.chatgpt.com/docs/agent-configuration/agents-md).
+
+> Phrases such as `加入知识库` and `add to knowledge base` are natural-language intents defined by this repository, not native Codex slash commands. No plugin is required.
+
+## Natural-language workflows
+
+| Prompt | Default behavior |
+|---|---|
+| `加入知识库：这是我的原创笔记` | Classify and store owner-authored input under `raw/`, then generate staged index candidates |
+| `add to knowledge base: this attachment is an external source` | Store source material under `sources/`, record provenance, and generate staged candidates |
+| `增加 Wiki 索引：刚才的材料` | Create cited wiki candidates in `.kb/staging/wiki/` and graph candidates in `.kb/staging/links/` |
+| `review and publish index: <staging path>` | Validate citations, aliases, edges, and hashes before promotion |
+| `query knowledge base: <question>` | Navigate wiki and graph, return to originals, and cite repository paths |
+| `backfill knowledge base: <path>` | Analyze existing content without rewriting source or product bodies |
+| `lint knowledge base` | Check paths, citations, aliases, hashes, and privacy risks |
+
+## Recommended operating loop
+
+1. Provide an attachment, repository path, text, or URL and identify its provenance when possible.
+2. Use `加入知识库` / `add to knowledge base` to capture it.
+3. Inspect candidates under `.kb/staging/wiki/`, `.kb/staging/links/`, and `.kb/staging/drafts/`.
+4. Ask Codex to summarize uncertain names, citations, and relationships.
+5. Use `审核并发布索引` / `review and publish index` only after human review.
+6. Query or compose from reviewed knowledge, always returning to original evidence.
+7. Run `检查知识库` / `lint knowledge base` after bulk imports or file moves.
+
+## Codex best practices
+
+- Keep one task focused on one goal: capture, index, review, query, or compose.
+- State whether material is owner-authored, external, or already published.
+- Provide concrete attachments, paths, or URLs.
+- Review staging before promoting generated knowledge.
+- Ask answers to distinguish owner judgment, external claims, published expression, and inference.
+- Do not publicly commit copyrighted captures, private material, credentials, or local metadata.
+- Commit each reviewed ingest or wiki update as a coherent Git change.
+
+## Manual workflow
+
+Without Codex, read [START_HERE.md](START_HERE.md), add original notes under `raw/notes/`, add sources under `sources/clips/`, follow [AGENTS.md](AGENTS.md), and review generated candidates before promotion.
 
 The included example shows how a source can explain a concept without changing either original file:
 
@@ -122,6 +170,7 @@ The deciding factors are review status, intended use, human ownership, and publi
     │   ├── concepts/
     │   └── entities/
     ├── staging/
+    │   ├── wiki/
     │   ├── drafts/
     │   ├── course-drafts/
     │   └── links/

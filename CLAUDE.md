@@ -39,6 +39,7 @@ Use these destinations:
 
 - `.kb/staging/drafts/` for unreviewed prose;
 - `.kb/staging/course-drafts/` for course control-file drafts;
+- `.kb/staging/wiki/` for candidate concept, entity, map, and source-note pages;
 - `.kb/staging/links/` for candidate graph sidecars;
 - `raw/drafts/` for drafts the owner has chosen to develop;
 - `wiki/` for reviewed knowledge pages;

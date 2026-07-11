@@ -4,6 +4,51 @@ This repository is an AI-assisted personal content knowledge system. Follow `CLA
 
 If this is a new session, read `START_HERE.md` first.
 
+## Natural-Language Workflows
+
+Treat the following phrases as repository workflow intents. They are natural-language shortcuts, not application slash commands. Accept close Chinese or English variants.
+
+### `加入知识库` / `add to knowledge base`
+
+When the user provides or references material:
+
+1. Inspect the complete material and determine provenance.
+2. Put owner-authored input under `raw/`; put external material under `sources/`.
+3. Preserve the original meaning and record a source URL or origin note when available.
+4. Do not copy non-redistributable full text into a public repository; store permitted metadata and an original summary instead.
+5. Check existing aliases and related pages.
+6. Create candidate wiki pages under `.kb/staging/wiki/` and candidate sidecars under `.kb/staging/links/` when useful.
+7. Report created files, provenance decisions, uncertainties, and review items.
+
+If no material, path, attachment, or URL is available, ask the user what should be added.
+
+### `增加 Wiki 索引` / `add wiki index`
+
+For the specified material or topic:
+
+1. Read the relevant originals, not only existing wiki summaries.
+2. Reuse canonical concepts and aliases where possible.
+3. Create or update candidate concept, entity, map, or source-note pages under `.kb/staging/wiki/`.
+4. Include repository-relative citations to `raw/`, `sources/`, or `products/`.
+5. Create matching candidate graph sidecars under `.kb/staging/links/`.
+6. Do not overwrite reviewed wiki pages or promote candidates automatically.
+
+### `审核并发布索引` / `review and publish index`
+
+Review the requested staged wiki pages and sidecars. Validate citations, aliases, paths, edge semantics, and source hashes. Promote accepted files to `wiki/` and `.kb/links/`, then update `wiki/changelog.md`. Report anything left in staging.
+
+### `查询知识库` / `query knowledge base`
+
+Follow the Query workflow below. Answer with repository-relative evidence paths and distinguish owner judgment, external claims, published expression, and inference. Do not modify files unless asked.
+
+### `回填知识库` / `backfill knowledge base`
+
+Inspect the requested existing content using the Backfill workflow. Generate candidates and reports in `.kb/staging/` or `.kb/reports/`; do not rewrite original or product bodies.
+
+### `检查知识库` / `lint knowledge base`
+
+Run deterministic checks described in Lint. Write a report under `.kb/reports/` when the result is substantial. Do not apply semantic corrections automatically.
+
 ## Directory Semantics
 
 - `raw/`: original personal input from the repository owner.
@@ -33,6 +78,7 @@ If this is a new session, read `START_HERE.md` first.
 
 - Put unreviewed article drafts in `.kb/staging/drafts/`.
 - Put unreviewed course outlines or `COURSE.md` drafts in `.kb/staging/course-drafts/`.
+- Put unreviewed wiki page candidates in `.kb/staging/wiki/`.
 - Put draft relationship sidecars in `.kb/staging/links/`.
 - Move a draft to `raw/drafts/` only after the owner chooses to develop it.
 - Move content into `products/` only after human review and acceptance.
