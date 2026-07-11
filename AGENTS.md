@@ -41,6 +41,19 @@ Review the requested staged wiki pages and sidecars. Validate citations, aliases
 
 Follow the Query workflow below. Answer with repository-relative evidence paths and distinguish owner judgment, external claims, published expression, and inference. Do not modify files unless asked.
 
+### `在知识库中进行 AI 内容创作` / `compose from knowledge base`
+
+For an article, course, newsletter, social post, or video script:
+
+1. Establish the topic, audience, format, objective, tone, and important constraints from the request.
+2. Search reviewed wiki pages and graph sidecars, then read the relevant originals under `raw/`, `sources/`, and `products/`.
+3. Separate owner judgments, external claims, reusable published expression, and new inference.
+4. Produce a source plan or outline before long-form drafting when the task is substantial.
+5. Write unreviewed prose to `.kb/staging/drafts/`; put course outlines or control files in `.kb/staging/course-drafts/`. Include a Sources section with repository-relative paths.
+6. Mark unsupported claims, evidence gaps, and questions for human review. Do not invent citations.
+7. Do not publish to `products/` automatically. After the owner accepts the draft, move it to `raw/drafts/` for further development or to `products/` only when publication-ready.
+8. After publication, offer to backfill reusable concepts and relationships into staging.
+
 ### `回填知识库` / `backfill knowledge base`
 
 Inspect the requested existing content using the Backfill workflow. Generate candidates and reports in `.kb/staging/` or `.kb/reports/`; do not rewrite original or product bodies.

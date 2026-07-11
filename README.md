@@ -81,6 +81,7 @@ Codex reads repository `AGENTS.md` guidance before it starts work. This reposito
 | `增加 Wiki 索引：刚才的材料` | Create cited wiki candidates in `.kb/staging/wiki/` and graph candidates in `.kb/staging/links/` |
 | `review and publish index: <staging path>` | Validate citations, aliases, edges, and hashes before promotion |
 | `query knowledge base: <question>` | Navigate wiki and graph, return to originals, and cite repository paths |
+| `compose from knowledge base: <brief>` | Retrieve reviewed knowledge and originals, then create a sourced staging draft |
 | `backfill knowledge base: <path>` | Analyze existing content without rewriting source or product bodies |
 | `lint knowledge base` | Check paths, citations, aliases, hashes, and privacy risks |
 
@@ -103,6 +104,64 @@ Codex reads repository `AGENTS.md` guidance before it starts work. This reposito
 - Ask answers to distinguish owner judgment, external claims, published expression, and inference.
 - Do not publicly commit copyrighted captures, private material, credentials, or local metadata.
 - Commit each reviewed ingest or wiki update as a coherent Git change.
+
+## Create AI content from the knowledge base
+
+Use the vault as a foundation for articles, courses, newsletters, social posts, and video scripts—not only as a place to store and retrieve information.
+
+The default lifecycle is:
+
+```text
+define the brief
+  -> locate reviewed knowledge in wiki and graph
+  -> read originals in raw, sources, and products
+  -> separate owner judgment, external claims, prior expression, and inference
+  -> create a source plan and outline
+  -> write to .kb/staging/drafts/
+  -> review facts, attribution, duplication, and style
+  -> develop in raw/drafts/ or publish to products/
+  -> backfill reusable knowledge
+```
+
+Start with a concrete brief:
+
+```text
+Compose from the knowledge base:
+Write a 2,500-word article for AI product managers about Context Engineering.
+Explain how it differs from Prompt Engineering.
+Prioritize my reviewed judgments and verified external sources.
+Cite repository paths for important claims.
+Create a source plan and outline before drafting.
+```
+
+For a substantial piece, use three separate passes:
+
+1. **Research pass** — list usable owner judgments, external evidence, prior published material, gaps, and possible duplication.
+2. **Outline pass** — map every section to its conclusion, examples, and source paths.
+3. **Draft and review pass** — write under `.kb/staging/drafts/`, then report unsupported claims, attribution problems, repetition, and decisions requiring human input.
+
+Example review prompt:
+
+```text
+Review this staging draft. Report missing evidence, overreach, duplicated prior content,
+unclear attribution, and decisions I need to make. Do not rewrite it yet.
+```
+
+Only move an accepted draft to `raw/drafts/` for further development or to `products/` when it is ready for publication. After publishing, backfill new concepts and relationships without modifying the published body.
+
+The same workflow applies to other formats:
+
+```text
+Compose from the knowledge base: design a six-part Agent Engineering course.
+Compare it with existing products, identify prerequisites and gaps,
+and save the outline under .kb/staging/course-drafts/.
+```
+
+```text
+Compose from the knowledge base: turn my reviewed Harness Engineering judgments
+into an eight-minute video script. Separate my claims from external citations,
+include visual cues, and save the draft in staging.
+```
 
 ## Explore the graph in Obsidian
 
