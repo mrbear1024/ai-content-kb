@@ -145,6 +145,37 @@ Codex 默认不会把 AI 生成结果直接当作正式知识。先查看：
 - **定期运行检查**：批量加入材料或移动文件后执行一次 `检查知识库`。
 - **审核后再提交 Git**：把一次经过确认的 ingest 或 Wiki 更新作为一个独立 commit。
 
+## 使用 Obsidian 查看知识图谱
+
+如果你使用 Obsidian，可以直接把这个项目作为 Vault 打开：
+
+1. 启动 Obsidian，选择 `Open folder as vault`（打开本地文件夹作为仓库）。
+2. 选择 clone 后的 `ai-content-kb` 根目录。
+3. 点击左侧功能区的 `Graph view`（关系图谱）图标。
+4. 点击图谱右上角的设置按钮，可以调整过滤条件、颜色组、箭头、节点大小和图谱作用力。
+
+仓库内置 `.obsidian/graph.json`，默认按目录角色为节点分组着色：
+
+- `raw/`：个人原创输入；
+- `sources/`：外部来源；
+- `products/`：已发布作品；
+- `wiki/`：概念、实体和领域索引。
+
+![Obsidian 大规模知识图谱效果示意](docs/assets/obsidian-graph-view.png)
+
+> 上图来自使用同一架构积累了大量内容后的知识库，用于展示长期效果。刚 clone 的模板只包含少量示例节点；随着笔记、Wiki 链接和标签增加，图谱才会逐渐形成更丰富的簇和连接。
+
+### Obsidian 图谱与机器图谱的区别
+
+这个项目同时保留两种关系层：
+
+| 关系层 | 位置 | 用途 |
+|---|---|---|
+| Obsidian 可视化图谱 | Markdown 链接、`[[wikilink]]` 和标签 | 供人浏览、发现知识簇和孤立节点 |
+| 机器关系图谱 | `.kb/links/*.yaml` | 供 AI 和脚本查询关系类型、证据、置信度和审核状态 |
+
+`.kb/links/` 中的 YAML 边不会自动显示为 Obsidian 连线。需要可视化的高价值关系，应在审核后的 Wiki 页面中加入普通 Markdown 链接或 `[[wikilink]]`；机器层仍保留更精确的关系语义。
+
 ## 手动使用
 
 不使用 Codex 时，也可以按以下方式操作：
@@ -185,7 +216,11 @@ AI 未审核关系数据     -> .kb/staging/links/
 ├── README.md
 ├── README.zh-CN.md
 ├── LICENSE
+├── .obsidian/
+│   └── graph.json
 ├── docs/
+│   ├── assets/
+│   │   └── obsidian-graph-view.png
 │   ├── ARCHITECTURE.md
 │   ├── GRAPH_SCHEMA.md
 │   └── PUBLIC_RELEASE_CHECKLIST.md

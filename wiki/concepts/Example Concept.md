@@ -15,4 +15,4 @@ Example Concept is a synthetic idea used to demonstrate how a reviewed wiki page
 
 ## Sources
 
-- `sources/clips/example-source.md`
+- [Example Source](../../sources/clips/example-source.md)

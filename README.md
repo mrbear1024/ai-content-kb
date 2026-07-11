@@ -104,6 +104,30 @@ Codex reads repository `AGENTS.md` guidance before it starts work. This reposito
 - Do not publicly commit copyrighted captures, private material, credentials, or local metadata.
 - Commit each reviewed ingest or wiki update as a coherent Git change.
 
+## Explore the graph in Obsidian
+
+If you use Obsidian, open this project directly as a vault:
+
+1. Start Obsidian and choose `Open folder as vault`.
+2. Select the cloned `ai-content-kb` root.
+3. Select `Graph view` in the left ribbon.
+4. Use the graph settings to adjust filters, color groups, arrows, node size, and forces.
+
+The included `.obsidian/graph.json` groups nodes by content role: `raw/`, `sources/`, `products/`, and `wiki/`.
+
+![Example of a mature Obsidian knowledge graph](docs/assets/obsidian-graph-view.png)
+
+> This screenshot shows a mature vault that has accumulated substantial content using the same architecture. A fresh clone contains only a few example nodes; clusters and connections emerge as notes, reviewed wiki links, and tags grow.
+
+### Two complementary graph layers
+
+| Layer | Location | Purpose |
+|---|---|---|
+| Obsidian visual graph | Markdown links, `[[wikilinks]]`, and tags | Human navigation, clusters, and orphan discovery |
+| Machine relationship graph | `.kb/links/*.yaml` | Typed edges, evidence, confidence, hashes, and review status for agents and scripts |
+
+YAML edges do not automatically appear as Obsidian graph lines. Add ordinary Markdown links or `[[wikilinks]]` to reviewed wiki pages when a high-value relationship should also be visible to people.
+
 ## Manual workflow
 
 Without Codex, read [START_HERE.md](START_HERE.md), add original notes under `raw/notes/`, add sources under `sources/clips/`, follow [AGENTS.md](AGENTS.md), and review generated candidates before promotion.
@@ -138,7 +162,11 @@ The deciding factors are review status, intended use, human ownership, and publi
 ├── README.md
 ├── README.zh-CN.md
 ├── LICENSE
+├── .obsidian/
+│   └── graph.json
 ├── docs/
+│   ├── assets/
+│   │   └── obsidian-graph-view.png
 │   ├── ARCHITECTURE.md
 │   ├── GRAPH_SCHEMA.md
 │   └── PUBLIC_RELEASE_CHECKLIST.md
