@@ -13,6 +13,11 @@
 
 ---
 
+> [!NOTE]
+> **本项目受 [Andrej Karpathy 的 LLM Wiki 构想](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f)启发而建立：** 该构想强调保留不可变的原始资料，由 LLM 增量维护一个持久、持续复利的 Markdown Wiki，并通过 `AGENTS.md` 等仓库 Schema 规定 Agent 如何 ingest、query 和维护知识。
+>
+> `ai-content-kb` 在这个思路上进一步增加了明确的来源角色、独立的发布作品层、Review-first staging、显式机器关系图谱、AI 内容创作工作流和旧知识库安全迁移方案。
+
 普通知识库经常把个人判断、外部材料、已发布作品和 AI 生成文本混在一起。这个模板为每类内容定义清楚的角色，并让 AI Agent 在不污染原文和发布流程的前提下参与整理、查询与创作。
 
 > **原文保持可信，Wiki 保持可读，图谱保持可查，AI 输出保持可审核。**

@@ -13,6 +13,11 @@
 
 ---
 
+> [!NOTE]
+> **This project was inspired by [Andrej Karpathy's LLM Wiki pattern](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f):** immutable raw sources, a persistent and compounding Markdown wiki maintained by an LLM, and a repository schema such as `AGENTS.md` that defines how the agent should ingest, query, and maintain knowledge.
+>
+> `ai-content-kb` extends that idea with explicit provenance roles, a first-class published-product layer, review-first staging, typed machine-readable relationships, content-creation workflows, and safe legacy-vault migration.
+
 Most knowledge bases mix personal thinking, external evidence, published work, and AI-generated text in the same pile. This template gives each a clear role—and gives AI agents rules for working without silently polluting originals or publication workflows.
 
 > **Originals stay trustworthy. The wiki stays readable. The graph stays queryable. AI output stays reviewable.**
