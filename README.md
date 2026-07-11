@@ -1,38 +1,82 @@
-# AI Content Knowledge Base
+<div align="center">
+  <h1>AI Content Knowledge Base</h1>
+  <p><strong>A review-first, AI-native knowledge base for people who research, write, teach, and publish.</strong></p>
+  <p>Markdown + Codex + Obsidian + typed YAML relationships</p>
+  <p>
+    <a href="https://github.com/mrbear1024/ai-content-kb/stargazers"><img src="https://img.shields.io/github/stars/mrbear1024/ai-content-kb?style=flat" alt="GitHub stars"></a>
+    <a href="LICENSE"><img src="https://img.shields.io/github/license/mrbear1024/ai-content-kb" alt="MIT license"></a>
+    <a href="AGENTS.md"><img src="https://img.shields.io/badge/Codex-AGENTS.md-111111" alt="Codex AGENTS.md"></a>
+    <a href="https://obsidian.md/"><img src="https://img.shields.io/badge/Obsidian-compatible-7C3AED?logo=obsidian" alt="Obsidian compatible"></a>
+  </p>
+  <p>English · <a href="README.zh-CN.md">简体中文</a></p>
+</div>
 
-[简体中文](README.zh-CN.md) | English
+---
 
-An open reference architecture for building an AI-assisted personal content knowledge system with Markdown, Obsidian, YAML sidecars, and a review-first workflow.
+Most knowledge bases mix personal thinking, external evidence, published work, and AI-generated text in the same pile. This template gives each a clear role—and gives AI agents rules for working without silently polluting originals or publication workflows.
 
-This project is not a collection of someone else's notes. It is a reusable vault skeleton that separates original thinking, external evidence, published work, human-readable knowledge pages, and machine-generated metadata.
+> **Originals stay trustworthy. The wiki stays readable. The graph stays queryable. AI output stays reviewable.**
 
-> Core idea: originals stay trustworthy, the wiki stays readable, the graph stays queryable, and AI output stays reviewable.
+![Example of a mature Obsidian knowledge graph](docs/assets/obsidian-graph-view.png)
 
-## Why this project exists
+> The screenshot shows a mature vault using this architecture. A fresh clone starts with a small synthetic example and grows as you add reviewed notes, links, and tags.
 
-A large content vault usually mixes several very different things:
+## Why this project
 
-- personal notes and judgments;
-- external articles, papers, and transcripts;
-- published articles, courses, and scripts;
-- AI-generated summaries and drafts;
-- indexes that help people navigate the collection.
+| Need | How this project handles it |
+|---|---|
+| Keep personal ideas distinct from external claims | Separate `raw/` and `sources/` provenance layers |
+| Reuse published articles, courses, and scripts | Treat reviewed output as a first-class `products/` layer |
+| Let people browse without turning summaries into proof | Use `wiki/` as a cited human interface |
+| Give agents precise relationships | Store typed, evidenced YAML sidecars in `.kb/links/` |
+| Prevent generated text from becoming truth by accident | Route AI output through `.kb/staging/` and human review |
+| Work naturally with Codex | Ship durable workflows in root [`AGENTS.md`](AGENTS.md) |
+| Keep Obsidian optional | Store everything as ordinary Markdown, YAML, JSON, and folders |
 
-Treating all of them as ordinary notes makes provenance and review status ambiguous. This template gives every file a clear role and keeps AI-generated bulk changes away from source material and publication workflows.
+## Quickstart
 
-## Architecture
+```bash
+git clone https://github.com/mrbear1024/ai-content-kb.git
+cd ai-content-kb
+```
+
+No application is required to read the vault. Use plain Markdown, open the root as an Obsidian vault, or use the intended Codex workflow below.
+
+### Open in Codex
+
+1. Open the Codex desktop app.
+2. Select `+` in **Projects**.
+3. Choose **Use an existing folder**.
+4. Select the cloned repository root.
+5. Start a new task and say:
 
 ```text
-raw/       original personal input
-sources/   external, citable source material
-products/  reviewed, published, or delivered output
-wiki/      human-readable concepts, entities, maps, and source notes
-.kb/       machine-readable graph, staging area, reports, and logs
+Inspect the project structure, read the knowledge-base rules,
+make no changes, and list the available workflows.
 ```
+
+Codex reads repository `AGENTS.md` guidance before starting work. The root instructions then route it to the rest of this project's rules. [See the official Codex documentation](https://learn.chatgpt.com/docs/agent-configuration/agents-md).
+
+> The phrases below are natural-language workflows defined by this repository, not native slash commands. No plugin is required.
+
+## Talk to your knowledge base
+
+| Say this | Default result |
+|---|---|
+| `加入知识库：这是我的原创笔记` | Store owner-authored input under `raw/` and create staged index candidates |
+| `add to knowledge base: this attachment is an external source` | Preserve provenance under `sources/` and create staged candidates |
+| `增加 Wiki 索引：刚才的材料` | Draft cited wiki pages and typed relationships in staging |
+| `query knowledge base: <question>` | Navigate the wiki and graph, return to originals, and cite paths |
+| `compose from knowledge base: <brief>` | Build a source plan, outline, and sourced staging draft |
+| `migrate legacy knowledge base: inventory <path>` | Produce a read-only inventory and mapping proposal |
+| `review and publish index: <staging path>` | Validate and promote accepted wiki and graph candidates |
+| `lint knowledge base` | Report broken paths, citations, aliases, hash changes, and privacy risks |
+
+## How it works
 
 ```mermaid
 flowchart LR
-    R["raw/\nOriginal input"]
+    R["raw/\nOwner input"]
     S["sources/\nExternal evidence"]
     P["products/\nReviewed output"]
     T[".kb/staging/\nAI candidates"]
@@ -48,283 +92,101 @@ flowchart LR
     G -->|retrieve evidence| P
 ```
 
-See [Architecture](docs/ARCHITECTURE.md) for the design rationale.
+| Path | Role | Source of truth? |
+|---|---|---:|
+| `raw/` | Original notes, judgments, voice transcripts, owned research, active drafts | Yes—owner intent |
+| `sources/` | External clips, papers, books, reports, and media transcripts | Yes—external claims |
+| `products/` | Reviewed articles, courses, scripts, and delivered work | Yes—published expression |
+| `wiki/` | Concepts, entities, maps, and high-value source notes | No—must cite originals |
+| `.kb/links/` | Reviewed typed relationships with evidence and hashes | Rebuildable |
+| `.kb/staging/` | Unreviewed AI prose, wiki pages, mappings, and graph candidates | No |
 
-## Quick start
+Read the [architecture rationale](docs/ARCHITECTURE.md) and [graph schema](docs/GRAPH_SCHEMA.md) for details.
 
-```bash
-git clone https://github.com/mrbear1024/ai-content-kb.git
-cd ai-content-kb
-```
+## Core workflows
 
-Open the repository root as an Obsidian vault or use it as plain Markdown. For the intended agent workflow, also open it as a Codex project.
-
-## Open the project in Codex
-
-1. Open the Codex desktop app.
-2. Select `+` in the `Projects` area.
-3. Choose `Use an existing folder`.
-4. Select the cloned `ai-content-kb` root, not one of its subdirectories.
-5. Start a new task inside that project.
-6. For a first-run check, say: `Inspect the project structure, read the knowledge-base rules, make no changes, and list the available workflows.`
-
-Codex reads repository `AGENTS.md` guidance before it starts work. This repository's root instructions then direct Codex to the remaining knowledge-base documentation, giving new tasks the same boundaries and workflows. [Read the official Codex documentation](https://learn.chatgpt.com/docs/agent-configuration/agents-md).
-
-> Phrases such as `加入知识库` and `add to knowledge base` are natural-language intents defined by this repository, not native Codex slash commands. No plugin is required.
-
-## Natural-language workflows
-
-| Prompt | Default behavior |
-|---|---|
-| `加入知识库：这是我的原创笔记` | Classify and store owner-authored input under `raw/`, then generate staged index candidates |
-| `add to knowledge base: this attachment is an external source` | Store source material under `sources/`, record provenance, and generate staged candidates |
-| `增加 Wiki 索引：刚才的材料` | Create cited wiki candidates in `.kb/staging/wiki/` and graph candidates in `.kb/staging/links/` |
-| `review and publish index: <staging path>` | Validate citations, aliases, edges, and hashes before promotion |
-| `query knowledge base: <question>` | Navigate wiki and graph, return to originals, and cite repository paths |
-| `compose from knowledge base: <brief>` | Retrieve reviewed knowledge and originals, then create a sourced staging draft |
-| `migrate legacy knowledge base: inventory <path>` | Produce a read-only inventory and mapping proposal before copying |
-| `backfill knowledge base: <path>` | Analyze existing content without rewriting source or product bodies |
-| `lint knowledge base` | Check paths, citations, aliases, hashes, and privacy risks |
-
-## Recommended operating loop
-
-1. Provide an attachment, repository path, text, or URL and identify its provenance when possible.
-2. Use `加入知识库` / `add to knowledge base` to capture it.
-3. Inspect candidates under `.kb/staging/wiki/`, `.kb/staging/links/`, and `.kb/staging/drafts/`.
-4. Ask Codex to summarize uncertain names, citations, and relationships.
-5. Use `审核并发布索引` / `review and publish index` only after human review.
-6. Query or compose from reviewed knowledge, always returning to original evidence.
-7. Run `检查知识库` / `lint knowledge base` after bulk imports or file moves.
-
-## Codex best practices
-
-- Keep one task focused on one goal: capture, index, review, query, or compose.
-- State whether material is owner-authored, external, or already published.
-- Provide concrete attachments, paths, or URLs.
-- Review staging before promoting generated knowledge.
-- Ask answers to distinguish owner judgment, external claims, published expression, and inference.
-- Do not publicly commit copyrighted captures, private material, credentials, or local metadata.
-- Commit each reviewed ingest or wiki update as a coherent Git change.
-
-## Create AI content from the knowledge base
-
-Use the vault as a foundation for articles, courses, newsletters, social posts, and video scripts—not only as a place to store and retrieve information.
-
-The default lifecycle is:
+### Capture and index
 
 ```text
-define the brief
-  -> locate reviewed knowledge in wiki and graph
-  -> read originals in raw, sources, and products
-  -> separate owner judgment, external claims, prior expression, and inference
-  -> create a source plan and outline
-  -> write to .kb/staging/drafts/
-  -> review facts, attribution, duplication, and style
-  -> develop in raw/drafts/ or publish to products/
-  -> backfill reusable knowledge
+add to knowledge base: this attachment is an external source.
+Preserve provenance, check existing aliases, and keep generated wiki and graph data in staging.
 ```
 
-Start with a concrete brief:
+Review `.kb/staging/wiki/` and `.kb/staging/links/` before promotion.
+
+### Create with AI
 
 ```text
 Compose from the knowledge base:
-Write a 2,500-word article for AI product managers about Context Engineering.
-Explain how it differs from Prompt Engineering.
-Prioritize my reviewed judgments and verified external sources.
-Cite repository paths for important claims.
-Create a source plan and outline before drafting.
+Write an article for AI product managers about Context Engineering.
+Separate my judgments from external claims, cite repository paths,
+and create a source plan and outline before drafting.
 ```
 
-For a substantial piece, use three separate passes:
+Unreviewed prose goes to `.kb/staging/drafts/`, accepted work moves to `raw/drafts/` for development, and only publication-ready work belongs in `products/`.
 
-1. **Research pass** — list usable owner judgments, external evidence, prior published material, gaps, and possible duplication.
-2. **Outline pass** — map every section to its conclusion, examples, and source paths.
-3. **Draft and review pass** — write under `.kb/staging/drafts/`, then report unsupported claims, attribution problems, repetition, and decisions requiring human input.
+[Read the content creation guide](docs/CONTENT_CREATION_GUIDE.md).
 
-Example review prompt:
-
-```text
-Review this staging draft. Report missing evidence, overreach, duplicated prior content,
-unclear attribution, and decisions I need to make. Do not rewrite it yet.
-```
-
-Only move an accepted draft to `raw/drafts/` for further development or to `products/` when it is ready for publication. After publishing, backfill new concepts and relationships without modifying the published body.
-
-The same workflow applies to other formats:
-
-```text
-Compose from the knowledge base: design a six-part Agent Engineering course.
-Compare it with existing products, identify prerequisites and gaps,
-and save the outline under .kb/staging/course-drafts/.
-```
-
-```text
-Compose from the knowledge base: turn my reviewed Harness Engineering judgments
-into an eight-minute video script. Separate my claims from external citations,
-include visual cues, and save the draft in staging.
-```
-
-## Explore the graph in Obsidian
-
-If you use Obsidian, open this project directly as a vault:
-
-1. Start Obsidian and choose `Open folder as vault`.
-2. Select the cloned `ai-content-kb` root.
-3. Select `Graph view` in the left ribbon.
-4. Use the graph settings to adjust filters, color groups, arrows, node size, and forces.
-
-The included `.obsidian/graph.json` groups nodes by content role: `raw/`, `sources/`, `products/`, and `wiki/`.
-
-![Example of a mature Obsidian knowledge graph](docs/assets/obsidian-graph-view.png)
-
-> This screenshot shows a mature vault that has accumulated substantial content using the same architecture. A fresh clone contains only a few example nodes; clusters and connections emerge as notes, reviewed wiki links, and tags grow.
-
-### Two complementary graph layers
-
-| Layer | Location | Purpose |
-|---|---|---|
-| Obsidian visual graph | Markdown links, `[[wikilinks]]`, and tags | Human navigation, clusters, and orphan discovery |
-| Machine relationship graph | `.kb/links/*.yaml` | Typed edges, evidence, confidence, hashes, and review status for agents and scripts |
-
-YAML edges do not automatically appear as Obsidian graph lines. Add ordinary Markdown links or `[[wikilinks]]` to reviewed wiki pages when a high-value relationship should also be visible to people.
-
-## Migrate an existing knowledge base
-
-Do not drop an entire existing Obsidian vault or notes directory into the template. Use a reversible migration:
-
-```text
-backup -> read-only inventory -> mapping review -> 20–50 file pilot
-  -> validate content, links, attachments, aliases, and privacy
-  -> expand in reviewed Git batches -> cut over
-```
-
-Start in Codex with:
+### Migrate an existing vault
 
 ```text
 Migrate legacy knowledge base: inventory the provided directory in read-only mode.
-Do not move, copy, delete, or modify legacy files.
-Classify samples as raw, sources, products, wiki, or needs_review.
-Produce a migration report and recommend a 20–50 file pilot, then stop for review.
+Do not move, copy, delete, or modify files.
+Propose a 20–50 file pilot and stop for review.
 ```
 
-Read the complete guides for content mapping, migration records, Obsidian links and attachments, batch validation, rollback, and acceptance criteria:
+Migration follows backup → inventory → mapping review → pilot → validation → reviewed batches → cutover.
 
-- [Migration guide](docs/MIGRATION_GUIDE.md)
-- [中文迁移指南](docs/MIGRATION_GUIDE.zh-CN.md)
+[Read the migration guide](docs/MIGRATION_GUIDE.md).
 
-## Manual workflow
+### Explore in Obsidian
 
-Without Codex, read [START_HERE.md](START_HERE.md), add original notes under `raw/notes/`, add sources under `sources/clips/`, follow [AGENTS.md](AGENTS.md), and review generated candidates before promotion.
+Open the repository root with **Open folder as vault**, then select **Graph view** in the left ribbon. The included `.obsidian/graph.json` colors nodes by `raw`, `sources`, `products`, and `wiki`.
 
-The included example shows how a source can explain a concept without changing either original file:
+Obsidian visualizes Markdown links and tags. Typed `.kb/links/*.yaml` relationships are a separate machine layer and do not automatically become Obsidian lines.
 
-- source: `sources/clips/example-source.md`;
-- concept: `wiki/concepts/Example Concept.md`;
-- graph sidecar: `.kb/links/sources/example-source.yaml`.
+## Review-first lifecycle
 
-## The review boundary
+| State | Destination |
+|---|---|
+| Unreviewed article or script | `.kb/staging/drafts/` |
+| Unreviewed course outline | `.kb/staging/course-drafts/` |
+| Unreviewed concept, entity, map, or source note | `.kb/staging/wiki/` |
+| Unreviewed relationship sidecar | `.kb/staging/links/` |
+| Draft selected for human development | `raw/drafts/` |
+| Reviewed knowledge and relationships | `wiki/` and `.kb/links/` |
+| Reviewed, publication-ready output | `products/` |
 
-```text
-unreviewed AI drafts        -> .kb/staging/drafts/
-unreviewed relationship data -> .kb/staging/links/
-human-developed drafts      -> raw/drafts/
-reviewed knowledge pages    -> wiki/
-reviewed relationship data  -> .kb/links/
-reviewed publishable work   -> products/
-```
+The deciding factors are **review status, intended use, human ownership, and publication readiness**—not whether AI helped write the text.
 
-The deciding factors are review status, intended use, human ownership, and publication readiness—not whether AI helped write the text.
+## Documentation
 
-## Repository map
+| Document | Purpose |
+|---|---|
+| [Start here](START_HERE.md) | Reading order and core boundaries |
+| [Agent rules](AGENTS.md) | Durable Codex workflows and safety rules |
+| [Knowledge base guide](KNOWLEDGE_BASE_GUIDE.md) | Human-facing operating principles |
+| [Architecture](docs/ARCHITECTURE.md) | Layer model, lifecycle, and scaling path |
+| [Graph schema](docs/GRAPH_SCHEMA.md) | YAML sidecar fields and edge vocabulary |
+| [Content creation](docs/CONTENT_CREATION_GUIDE.md) | Research, outlining, drafting, review, and backfill |
+| [Migration](docs/MIGRATION_GUIDE.md) | Safe migration from an existing vault |
+| [Public release checklist](docs/PUBLIC_RELEASE_CHECKLIST.md) | Privacy, secrets, rights, and release checks |
 
-```text
-.
-├── AGENTS.md
-├── CLAUDE.md
-├── START_HERE.md
-├── KNOWLEDGE_BASE_GUIDE.md
-├── README.md
-├── README.zh-CN.md
-├── LICENSE
-├── .obsidian/
-│   └── graph.json
-├── docs/
-│   ├── assets/
-│   │   └── obsidian-graph-view.png
-│   ├── ARCHITECTURE.md
-│   ├── GRAPH_SCHEMA.md
-│   ├── MIGRATION_GUIDE.md
-│   ├── MIGRATION_GUIDE.zh-CN.md
-│   └── PUBLIC_RELEASE_CHECKLIST.md
-├── raw/
-│   ├── notes/
-│   ├── voice/
-│   ├── research/
-│   └── drafts/
-├── sources/
-│   ├── clips/
-│   ├── papers/
-│   ├── books/
-│   ├── reports/
-│   └── media/
-├── products/
-│   ├── articles/
-│   ├── courses/
-│   └── media/
-├── wiki/
-│   ├── concepts/
-│   ├── entities/
-│   ├── maps/
-│   └── sources/
-└── .kb/
-    ├── links/
-    │   ├── raw/
-    │   ├── sources/
-    │   ├── products/
-    │   ├── concepts/
-    │   └── entities/
-    ├── staging/
-    │   ├── wiki/
-    │   ├── migration/
-    │   ├── drafts/
-    │   ├── course-drafts/
-    │   └── links/
-    ├── reports/
-    ├── logs/
-    └── metadata/
-```
+## Project scope
 
-## What this repository does not claim
+This repository is a **reference architecture and working template**, not a hosted knowledge-management application. Automation is intentionally minimal: validate the content roles and review workflow with files first, then add manifests, search, embeddings, or a graph database only when real queries justify them.
 
-- It is a reference template, not a finished knowledge-management application.
-- Obsidian is optional; the storage model is ordinary files.
-- YAML sidecars are the first graph representation, not a requirement to avoid databases forever.
-- AI-generated pages are not automatically trustworthy.
-- More links and more pages are not success metrics by themselves.
+Obsidian and Codex are optional interfaces. The durable system is the repository itself.
 
-## Success criteria
+## Contributing and support
 
-A useful implementation should answer questions such as:
+- Found a problem or have a proposal? [Open an issue](https://github.com/mrbear1024/ai-content-kb/issues).
+- Pull requests improving the information model, examples, schemas, lint rules, and documentation are welcome.
+- Do not submit private notes, copyrighted captures, credentials, absolute home paths, or generated databases containing personal metadata.
+- Before publishing a fork, use the [public release checklist](docs/PUBLIC_RELEASE_CHECKLIST.md).
 
-- Which sources merely mention a concept, and which explain it?
-- Which published works used a particular idea?
-- Is a claim based on personal judgment or external evidence?
-- Which course chapters cover a concept?
-- Which source changed after its graph data was last reviewed?
-- Can every important wiki statement be traced to an original file?
-
-## Using product repositories
-
-If articles or courses live in separate repositories, mount or reference them under `products/`. Do not hard-code personal absolute paths into public configuration. Document local mount setup in a private, ignored file such as `.kb/metadata/local-mounts.yaml`.
-
-## Contributing
-
-Improvements to the information model, graph schema, review workflow, examples, and lint rules are welcome. Do not submit private notes, copyrighted source captures, credentials, absolute home-directory paths, or generated databases containing personal metadata.
-
-Before publishing a fork, use [the public release checklist](docs/PUBLIC_RELEASE_CHECKLIST.md).
+Maintained by [mrbear1024](https://github.com/mrbear1024) and contributors.
 
 ## License
 
-MIT. See [LICENSE](LICENSE).
-
-This project is not affiliated with or endorsed by Obsidian.
+[MIT](LICENSE). This project is not affiliated with or endorsed by Obsidian or OpenAI.
