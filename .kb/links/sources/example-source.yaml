@@ -1,0 +1,13 @@
+schema_version: 1
+source: "sources/clips/example-source.md"
+source_type: source
+title: "Example Source"
+review_status: reviewed
+reviewed_at: "2026-01-01"
+source_hash: "sha256:3eedd57b23fa8e84a279309bf8396a73ce30ce26d203894987ac521a6e25e03a"
+edges:
+  - type: explains
+    target: "wiki/concepts/Example Concept.md"
+    target_type: concept
+    confidence: high
+    evidence: "The source defines the synthetic concept and its role in this template."

@@ -1,0 +1,43 @@
+# Obsidian local state
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.trash/
+
+# Generated machine state
+.kb/manifest.sqlite
+.kb/fts.sqlite
+.kb/logs/*
+!.kb/logs/.gitkeep
+.kb/reports/generated-*
+.kb/metadata/local-*
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Operating system and editor files
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# Binary media and archives
+*.mp3
+*.mp4
+*.mov
+*.m4a
+*.wav
+*.flac
+*.zip
+*.tar
+*.gz
+
+# Common build and dependency directories
+node_modules/
+dist/
+build/
+__pycache__/
+.venv/

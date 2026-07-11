@@ -1,0 +1,100 @@
+# Agent Operating Rules
+
+This repository is an AI-assisted personal content knowledge system. Follow `CLAUDE.md` and `KNOWLEDGE_BASE_GUIDE.md`.
+
+If this is a new session, read `START_HERE.md` first.
+
+## Directory Semantics
+
+- `raw/`: original personal input from the repository owner.
+- `sources/`: external, citable source material.
+- `products/`: reviewed, published, or delivered personal output.
+- `wiki/`: human-readable knowledge index and synthesis layer.
+- `.kb/links/`: reviewed, machine-readable relationship graph.
+- `.kb/staging/`: AI-generated output awaiting human review.
+
+## Source Of Truth
+
+- `raw/`, `sources/`, and `products/` are authoritative in different roles.
+- `wiki/` is an index and synthesis layer, not independent proof.
+- Non-trivial claims in `wiki/` must cite `raw/`, `sources/`, or `products/`.
+- Unreviewed AI output is never a source of truth.
+
+## Write Boundaries
+
+- Preserve original files under `raw/` and `sources/` unless explicitly asked to edit them.
+- Do not modify mounted or externally managed product files unless explicitly requested.
+- Do not batch-insert Obsidian wikilinks or vault-specific metadata into product files.
+- Put AI-generated bulk changes in `.kb/staging/` first.
+- Preserve human-reviewed wiki content.
+- Do not store binary audio, video, archives, credentials, or secrets in the vault.
+
+## AI-Generated Content
+
+- Put unreviewed article drafts in `.kb/staging/drafts/`.
+- Put unreviewed course outlines or `COURSE.md` drafts in `.kb/staging/course-drafts/`.
+- Put draft relationship sidecars in `.kb/staging/links/`.
+- Move a draft to `raw/drafts/` only after the owner chooses to develop it.
+- Move content into `products/` only after human review and acceptance.
+
+## Graph Model
+
+Represent important relationships with sidecar YAML under `.kb/links/`. Use the schema in `docs/GRAPH_SCHEMA.md`.
+
+Preferred edge types:
+
+- `mentions`
+- `explains`
+- `uses`
+- `derived_from`
+- `part_of`
+- `related_to`
+- `alias_of`
+
+Do not use natural-language summaries as the only relationship record.
+
+## Ingest
+
+1. Read the complete source file.
+2. Extract its title, summary, concepts, entities, claims, and examples.
+3. Check existing concept aliases before creating pages.
+4. Create draft pages and sidecars under `.kb/staging/`.
+5. Promote reviewed output to `wiki/` or `.kb/links/`.
+6. Record reviewed changes in `wiki/changelog.md`.
+
+## Backfill
+
+- Sample structure first: title, frontmatter, headings, opening, section leads, ending, links, and image alt text.
+- Read the full file when needed to verify a relationship or claim.
+- Do not modify original article or course bodies during backfill.
+- Keep candidate relationships in staging until reviewed.
+
+## Query
+
+1. Start with `wiki/` for orientation.
+2. Use `.kb/links/` to locate connected raw, source, and product files.
+3. Return to those original files for factual detail.
+4. Cite repository-relative paths.
+
+## Lint
+
+Check for:
+
+- broken source and target paths;
+- missing citations;
+- duplicate aliases;
+- deprecated pages still referenced;
+- source hash changes that require re-ingest;
+- missing course or media control files;
+- secrets, personal absolute paths, and binary files.
+
+## Review Rule
+
+The deciding factors are:
+
+```text
+review status
+intended use
+human ownership
+publication readiness
+```
